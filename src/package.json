@@ -1,0 +1,35 @@
+{
+  "name": "react-native-offline-demo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/giangriver/react-native-offline-demo-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/giangriver/react-native-offline-demo-server/issues"
+  },
+  "homepage": "https://github.com/giangriver/react-native-offline-demo-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "config": "^3.3.6",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.3",
+    "request-ip": "^2.1.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

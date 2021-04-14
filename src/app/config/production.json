@@ -1,0 +1,12 @@
+{
+    "App": {
+        "port": 3002,
+        "password_reset_expiration_hours": 24,
+        "default_timzone_offset": -8,
+        "app_web": "http://localhost:4200",
+        "api": {
+            "show_error_messages": true,
+            "default_error_message": "There was an error processing this message"
+        }
+    }
+}
