@@ -1,11 +1,46 @@
 module.exports = Object.freeze({
-
-    // encryption constants
+    ROUTE_PREFIX: 'demo',
     SALT_WORK_FACTOR:10,
     ALGORITHM: 'aes-256-ctr',
     EXPIRES: 4320,
     MONGO_TIME_ZONE_DEFAULT: -5,
     VERIFICATION_EXPIRES: 24,
+    templates: {
+        PASSWORD_RESET: 1,
+        PASSWORD_RESET_SMS: 2,
+        EMAIL_VERIFICATION_CODE: 3,
+        EMAIL_VERIFICATION_TOKEN: 4,
+        PHONE_VERIFICATION_CODE: 5,
+        WELCOME_EMAIL: 6,
+        CONTACT_EMAIL: 7,
+        INVITATION: 8,
+        CONTACT_EMAIL_ADMIN: 9
+    },
+    variables: {
+        FIRST_NAME: "$$FIRST_NAME$$",
+        LAST_NAME: "$$LAST_NAME$$",
+        EMAIL_ADDRESS: "$$EMAIL_ADDRESS$$",
+        USERNAME: "$$USERNAME$$",
+        PASSWORD_RESET_HOURS: "$$PASSWORD_RESET_HOURS$$",
+        PASSWORD_RESET_URL: "$$PASSWORD_RESET_URL$$",
+        PASSWORD_RESET_ID: "$$PASSWORD_RESET_ID$$",
+        EMAIL_VERIFICATION_RESET_HOURS: "$$EMAIL_VERIFICATION_RESET_HOURS$$",
+        EMAIL_VERIFICATION_URL: "$$EMAIL_VERIFICATION_URL$$",
+        EMAIL_VERIFICATION_TOKEN: "$$EMAIL_VERIFICATION_TOKEN$$",
+        EMAIL_VERIFICATION_CODE: "$$EMAIL_VERIFICATION_CODE$$",
+        INVITATION_ACCEPT_URL: "$$INVITATION_ACCEPT_URL$$",
+        INVITATION_TOKEN: "$$INVITATION_TOKEN$$",
+        SUBJECT: "$$SUBJECT$$",
+        MESSAGE: "$$MESSAGE$$",
+        CODE: "$$CODE$$",
+        VENDOR_NAME: "$$VENDOR_NAME$$",
+        VENDOR_ADDRESS: "$$VENDOR_ADDRESS$$",
+        VENDOR_PHONE: "$$VENDOR_PHONE$$"
+    },
+    mail: {
+        PASSWORD_RESET_SUBJECT: "Password Reset",
+        EMAIL_WELCOME: "Welcome to Demo!"
+    },
     messages: {
         INTERNAL_ERROR: "An internal error has occurred",
         USER_NOT_FOUND: "Authentication failed. User not found.",

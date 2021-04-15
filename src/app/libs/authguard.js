@@ -1,4 +1,4 @@
-var jwt = require("jsonwebtoken"),
+const jwt = require("jsonwebtoken"),
     Constants = require('../constant/constant');
 
 exports.AuthGuard = (req, res, next) => {

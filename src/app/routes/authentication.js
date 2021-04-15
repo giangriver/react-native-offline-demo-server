@@ -4,7 +4,7 @@
 
 'use strict';
 
-var authenticationController = require('../controllers/authentication'),
+const authenticationController = require('../controllers/authentication'),
     AuthGuard = require('../libs/authguard').AuthGuard;
 
 module.exports = function(app) {
@@ -13,7 +13,7 @@ module.exports = function(app) {
     // app.get('/api/v1/authentication', (req, res, next) => AuthGuard(req, res, next), authenticationController.getAuthenticationInformation);
 
     // authenticate
-    app.post('/api/v1/authenticate', authenticationController.getAuthentication);
+    app.post('/demo/api/v1/authenticate', authenticationController.getAuthentication);
 
     // refresh
     // app.get('/api/v1/refresh', (req, res, next) => AuthGuard(req, res, next), authenticationController.getRefresh);

@@ -1,0 +1,232 @@
+openapi: 3.0.0
+info:
+  version: 'v1.0'
+  title: test-demo-api
+  description: test-demo-api
+servers:
+    - description: Local Host
+      url: http://localhost:8005/demo/api
+paths:
+    /v1/authenticate:
+      post:
+        tags:
+          - 'Login'
+        summary: POST authentication
+        description: POST authentication
+        operationId: postAuthentication
+        requestBody:
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: "string"
+                    example: "martin"
+                  email_address:
+                    type: "string"
+                    example: "tuongmartin@yopmail.com"
+                  password:
+                    type: "string"
+                    example: "123456"
+        responses:
+          200:
+            description: POST authentication
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1PostAuthenticationResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1PostAuthenticationResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1PostFailAuthenticationResponse'
+    
+    /v1/user:
+      post:
+        tags:
+          - 'Sign Up Account'
+        summary: POST sign up account
+        description: POST sign up account
+        operationId: postSignup
+        requestBody:
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: "string"
+                    example: "martin"
+                  email_address:
+                    type: "string"
+                    example: "tuongmartin@yopmail.com"
+                  password:
+                    type: "string"
+                    example: "123456"
+                  first_name:
+                    type: "string"
+                    example: "WCH"
+                  last_name:
+                    type: "string"
+                    example: "Jsan"
+        responses:
+          200:
+            description: POST signup
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1PostSignupResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1PostSignupResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1PostFailSignupResponse'
+    
+components:
+  schemas:
+    v1PostAuthenticationResponse:
+      type: object
+      properties:
+        value:
+          type: "object"
+          properties:
+            token:
+              type: "string"
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg0NTk1NDMsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW5AeW9wbWFpbC5jb20iLCJ1c2VybmFtZSI6ImRldjIzNCJ9.vpn9BboxknC1DCQNLzSlqI14o5DKrhvqOw6p6scfxR4"
+            expiresIn:
+              type: number
+              example: 4320
+            expiryDate:
+              type: number
+              example: 1618718743
+            username:
+              type: "string"
+              example: "dev234"
+            email_address:
+              type: "string"
+              example: "tuongmartin@yopmail.com"
+            first_name:
+              type: "string"
+              example: "TEST"
+            last_name:
+              type: "string"
+              example: "ABC"
+        success:
+          description: Success status
+          type: boolean
+          example: true
+          enum: [true,false]
+        created_date:
+          type: "string"
+          example: "2021-04-15T04:06:13.207Z"
+        values:
+          type: 'array'
+          items: 
+            type: object
+          example: []
+        messages:
+          type: "string"
+          example: "Logged In"
+
+    v1PostSignupResponse:
+      type: object
+      properties:
+        value:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+              example: "6077e8a9c4080227c4f84e5d"
+            created_date:
+              type: "string"
+              example: "2021-04-15T04:06:13.207Z"
+            updated_date:
+              type: "string"
+              example: "2021-04-15T04:06:13.207Z"
+            username:
+              type: "string"
+              example: "dev234"
+            password:
+              type: "string"
+              example: "#####"
+            email_address:
+              type: "string"
+              example: "tuongmartin123@yopmail.com"
+            first_name:
+              type: "string"
+              example: "TEST"
+            last_name:
+              type: "string"
+              example: "ABC"
+        success:
+          description: Success status
+          type: boolean
+          example: true
+          enum: [true,false]
+        created_date:
+          type: "string"
+          example: "2021-04-15T04:06:13.207Z"
+        values:
+          type: 'array'
+          items: 
+            type: object
+          example: []
+        messages:
+          type: "string"
+          example: "Adding a new User - TEST ADC"
+        errorMessage:
+          type: "string"
+          example: ""
+
+  examples:
+
+    v1PostAuthenticationResponse:
+      value:
+        value:
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg0NTk1NDMsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW5AeW9wbWFpbC5jb20iLCJ1c2VybmFtZSI6ImRldjIzNCJ9.vpn9BboxknC1DCQNLzSlqI14o5DKrhvqOw6p6scfxR4"
+          expiresIn: 4320
+          expiryDate: 1618718743
+          username: "dev234"
+          email_address: "tuongmartin@yopmail.com"
+          first_name: "TEST"
+          last_name: "ADS"
+        values: []
+        success: true
+        created_date: "2021-04-15T04:06:13.207Z"
+        message: "Logged In"
+
+    v1PostFailAuthenticationResponse:
+      value:
+        value: "Error"
+        values: []
+        success: false
+        created_date: "2021-04-15T07:03:36.510Z"
+        message: null
+        errorMessage: "Authentication failed. User not found."
+
+    v1PostSignupResponse:
+      value:
+        value:
+          _id: "6077e8a9c4080227c4f84e5d"
+          created_date: "2021-04-15T07:18:01.858Z"
+          updated_date: "2021-04-15T07:18:01.858Z"
+          username: "deccc"
+          password: "#####"
+          email_address: "tuongmartin123@yopmail.com"
+          first_name: "TEST"
+          last_name: "ADC"
+          __v: 0
+        values: []
+        success: true
+        errorMessage: ""
+        created_date: "2021-04-15T04:06:13.207Z"
+        message: "Adding a new User - TEST ADC"
+    
+    v1PostFailSignupResponse:
+      value:
+        value: {}
+        values: []
+        success: false
+        created_date: "2021-04-15T07:23:10.764Z"
+        message: null
+        errorMessage: "A user with this username already exists."
+        message: "A user with this username already exists."

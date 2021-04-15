@@ -7,6 +7,13 @@
         "api": {
             "show_error_messages": true,
             "default_error_message": "There was an error processing this message"
+        },
+        "mail": {
+            "url": "smtp.sendgrid.net",
+            "port": 465,
+            "from": "noreply@demotest.com",
+            "username": "apikey",
+            "password": "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"
         }
     }
 }

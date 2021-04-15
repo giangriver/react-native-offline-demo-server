@@ -1,5 +1,5 @@
-var Config = require('config');
-    config = Config.get('App');
+const Config = require('config');
+const config = Config.get('App');
 
 class ReturnResult {
 
