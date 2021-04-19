@@ -7,7 +7,7 @@ servers:
     - description: Local Host
       url: http://localhost:8005/demo/api
 paths:
-    /v1/authenticate:
+    /v1.0/authentication/login:
       post:
         tags:
           - 'Login'
@@ -41,7 +41,7 @@ paths:
                   failExample:
                     $ref: '#/components/examples/v1PostFailAuthenticationResponse'
     
-    /v1/user:
+    /v1.0/user/signup:
       post:
         tags:
           - 'Sign Up Account'
