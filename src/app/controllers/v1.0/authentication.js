@@ -12,8 +12,8 @@ class AuthenticationController {
         router.route('/login')
             .post(async function (req, res, next) {
                 try {
-                    let username = req.body.username.toLowerCase() || null;
-                    let email_address = req.body.email_address.toLowerCase() || null;
+                    let username = !req.body.username ? null : req.body.username.toLowerCase();
+                    let email_address = !req.body.email_address ? null : req.body.email_address.toLowerCase();
                     let password = req.body.password || null;
                     let ip = req.ip || null;
                     let result = await self.authenticationService.getAuthentication(username, email_address, password, ip);
