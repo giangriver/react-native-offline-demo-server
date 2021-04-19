@@ -84,6 +84,7 @@ app.use('/' + constant.ROUTE_PREFIX + '/api/swagger', swaggerUI.serve, swaggerUI
 // set up models
 //------------------------------------------------------
 var UserModel = require('./app/models/user');
+var ContactModel = require('./app/models/contact');
 
 //-------------------------------------------------------------------
 // set up middlewares
