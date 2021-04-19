@@ -25,14 +25,12 @@ UserSchema.pre('save', function(next) {
     if (this.isModified('password')) {
         // access authentication
         var authentication = new Authentication();
-        // call auth function to encrypt the password    
-        authentication.encrypt_string(user.password, function(result) {
-            // set saved password
-            user.password = result;
-            // move on
-            next();
-        });
-
+        // call auth function to encrypt the password
+        let result = authentication.encrypt_string(user.password);
+        // set saved password
+        user.password = result;
+        // move on
+        next();
     } else {
         return next();
     }

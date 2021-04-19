@@ -8,7 +8,7 @@ Authentication = function() {
 Encrypt a string
 ---------------------------------------------------------------
 */
-Authentication.prototype.encrypt_string = function(incoming_string, callback) {
+Authentication.prototype.encrypt_string = function(incoming_string) {
 
     // set up hash
     var hash_string = crypto.createHash('md5').update('process.env.DEMO_SECRET_KEY', 'utf-8').digest('hex').toUpperCase();
@@ -26,7 +26,7 @@ Authentication.prototype.encrypt_string = function(incoming_string, callback) {
     var encrypted_string = encryptedData.toUpperCase();
 
     // return encrypted data
-    callback(encrypted_string);
+    return encrypted_string;
 }
 
 Authentication.prototype.tester = function() {

@@ -86,11 +86,17 @@ app.use('/' + constant.ROUTE_PREFIX + '/api/swagger', swaggerUI.serve, swaggerUI
 var UserModel = require('./app/models/user');
 
 //-------------------------------------------------------------------
+// set up middlewares
+//------------------------------------------------------
+app.use(require('./app/middleware/responsewrapper'));
+
+//-------------------------------------------------------------------
 // set up routes
 //-------------------------------------------------------------------
 
-require('./app/routes/authentication')(app);
-require('./app/routes/user')(app);
+// require('./app/routes/authentication')(app);
+// require('./app/routes/user')(app);
+require('./app/init/route')(app);
 
 // set up static folder
 app.use('/public', express.static(path.join(__dirname, 'public')))

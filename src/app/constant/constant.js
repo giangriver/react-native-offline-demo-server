@@ -56,5 +56,48 @@ module.exports = Object.freeze({
         TOKEN_EXPIRED: "Token has expired",
         INVITATION_REQUEST_ACCEPTED: "Invitation request accepted",
         PASSWORD_RESET_COMPLETE: "Password reset complete",
-    }
+    },
+    DEFAULT_ERROR_CODE: -999,
+    ERROR_CODE_DELIMETER: '_',
+    DEFAULT_LANGUAGEID: 'en-US',
+    ERROR_TYPE: {
+        API: 'API'
+    },
+    ERROR_MAP: {
+        DEFAULT_KEY_ERROR: 'DEFAULT_KEY_ERROR',
+        USER_NOT_FOUND: 'USER_NOT_FOUND',
+        INVALID_PASSWORD: 'INVALID_PASSWORD',
+        FAILED_TO_AUTHENTICATE: 'FAILED_TO_AUTHENTICATE',
+        FAILED_TO_VERIFY_LOGIN_USER: 'FAILED_TO_VERIFY_LOGIN_USER',
+        USERNAME_EXISTS: 'USERNAME_EXISTS',
+        EMAIL_EXISTS: 'EMAIL_EXISTS',
+        NO_PASSWORD: 'NO_PASSWORD',
+        FAILED_TO_ADD_USER: 'FAILED_TO_ADD_USER',
+        FAILED_TO_SIGN_UP: 'FAILED_TO_SIGN_UP',
+        FAILED_TO_SAVE_NEW_USER: 'FAILED_TO_SAVE_NEW_USER'
+    },
+    ERROR_CODE: {
+        BAD_REQUEST: 400
+    },
+    ErrorConfiguration:
+    {
+        API:
+        {
+            [-999]: {
+                "DEFAULT_KEY_ERROR": "There seems to be a problem performing your action, please try again."
+            },
+            [400]: {
+                'USER_NOT_FOUND' : "Authentication failed. User not found.",
+                'INVALID_PASSWORD': "Authentication failed. Wrong password.",
+                'FAILED_TO_AUTHENTICATE': "Fail to get authentication",
+                'FAILED_TO_VERIFY_LOGIN_USER': "Fail to verify login user",
+                'USERNAME_EXISTS': "A user with this username or email address already exists.",
+                'EMAIL_EXISTS': "A user with this email address already exists.",
+                'NO_PASSWORD': "No password provided.",
+                'FAILED_TO_ADD_USER': "Fail to add user",
+                'FAILED_TO_SIGN_UP': "Fail to sign up",
+                'FAILED_TO_SAVE_NEW_USER': "Fail to save new user"
+            }
+        },
+    },
 });
