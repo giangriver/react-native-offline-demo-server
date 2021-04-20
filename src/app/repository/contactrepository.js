@@ -24,7 +24,7 @@ class ContactRepository {
     	}
     }
 
-    async createContact(name, number, email, photo) {
+    async createContact(name, user_id, number, email, photo) {
     	const METHOD_NAME = "createContact";
     	try {
             let existingContact = await Contact.findOne({email: email});
@@ -35,6 +35,7 @@ class ContactRepository {
                 throw this.error;
             }
     		let contact = new Contact({name: name,
+                user_id: mongoose.Types.ObjectId(user_id),
     			number: number,
     			email: email,
     			photo: photo});
@@ -60,13 +61,14 @@ class ContactRepository {
                 throw this.error;
             }
 
-            let existingContact = await Contact.findOne({email: email});
-            if (existingContact) {
-                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
-                this.error.errorType = Constants.ERROR_TYPE.API;
-                this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
-                throw this.error;
-            }
+            //--------- if only update name or other field ? ---------//
+            // let existingContact = await Contact.findOne({email: email});
+            // if (existingContact) {
+            //     this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+            //     this.error.errorType = Constants.ERROR_TYPE.API;
+            //     this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
+            //     throw this.error;
+            // }
 
             let updated_date = Date.now();
             let modifier = { name, number, email, photo, updated_date };

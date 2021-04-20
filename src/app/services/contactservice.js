@@ -17,9 +17,9 @@ class ContactService {
         }
     }
 
-    async createContact(name, number, email, photo) {
+    async createContact(name, user_id, number, email, photo) {
         try {
-            return await this.contactRepository.createContact(name, number, email, photo);
+            return await this.contactRepository.createContact(name, user_id, number, email, photo);
         } catch (error) {
             if (error instanceof demoError) throw error;
             throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_CREATE_CONTACT);

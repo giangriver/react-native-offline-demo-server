@@ -11,6 +11,7 @@ class ContactController {
 
         router.get('/', AuthGuard, async function (req, res, next) {
                 try {
+                    console.log(req.user);
                     const contacts = await self.contactService.listContacts();
                     res.sendOk(contacts);
                 } catch (error) {
@@ -23,8 +24,9 @@ class ContactController {
                 let name = req.body.name || null;
                 let email = req.body.email.toLowerCase() || null;
                 let number = req.body.number || null;
-                let photo = req.file.path || null;
-                const contact = await self.contactService.createContact(name, number, email, photo);
+                let photo = req.file ? req.file.path : null;
+                let user_id = req.user.id || null;
+                const contact = await self.contactService.createContact(name, user_id, number, email, photo);
                 res.sendOk(contact);
             } catch (error) {
                 console.log(error);
@@ -38,7 +40,7 @@ class ContactController {
                     let name = req.body.name || null;
                     let email = req.body.email.toLowerCase() || null;
                     let number = req.body.number || null;
-                    let photo = req.file.path || null;
+                    let photo = req.file ? req.file.path : null;
                     const contact = await self.contactService.updateContact(id, name, number, email, photo);
                     res.sendOk(contact);
                 } catch (error) {

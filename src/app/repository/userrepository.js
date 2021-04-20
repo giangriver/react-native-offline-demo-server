@@ -50,7 +50,8 @@ class UserRepository {
                 expiresIn: Constants.EXPIRES,
                 ip: ip,
                 email_address: user.email_address,
-                username: user.username
+                username: user.username,
+                id: user.id
             }, process.env.DEMO_JWT_SECRET_KEY);
             return {
                 token: token,
