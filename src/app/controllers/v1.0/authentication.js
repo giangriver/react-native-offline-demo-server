@@ -1,5 +1,6 @@
 'use strict';
-const authenticationService = require('../../services/authenticationservice');
+const authenticationService = require('../../services/authenticationservice'),
+      AuthGuard = require('../../libs/authguard').AuthGuard;
 
 class AuthenticationController {
     constructor() {
@@ -22,6 +23,17 @@ class AuthenticationController {
                     res.sendError(error);
                 }
             })
+        
+        router.get('/refresh', AuthGuard, async function (req, res, next) {
+            try {
+                let token = req.headers.token;
+                let ip = req.ip;
+                let result = await self.authenticationService.verifyToken(token, ip);
+                res.sendOk(result);
+            } catch (error) {
+                res.sendError(error);
+            }
+        })
     }
 }
 module.exports = AuthenticationController;

@@ -19,6 +19,15 @@ class AuthenticationService {
             throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_AUTHENTICATE);
         }
     }
+
+    async verifyToken(token, ip) {
+        try {
+            return await this.userRepository.verifyToken(token, ip);
+        } catch (error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_VERIFY_TOKEN);
+        }
+    }
 }
 
 module.exports = AuthenticationService;

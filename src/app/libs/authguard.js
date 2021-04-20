@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken"),
     Constants = require('../constant/constant');
 
 exports.AuthGuard = (req, res, next) => {
-    var token = req.headers['authorization'];
+    var token = req.headers['token'];
 
     if (!token) 
       return res.status(401).send({ auth: false, message: 'No token provided.' });

@@ -91,7 +91,7 @@ class UserRepository {
                 this.error.errorKey = Constants.ERROR_MAP.NO_PASSWORD;
                 throw this.error;
             }
-            
+
             // create new state
             var user = new User({
                 username: username,
@@ -100,7 +100,7 @@ class UserRepository {
                 first_name: first_name,
                 last_name: last_name
             });
-            
+
             user = await user.save();
             user.password = '###';
             return user;
@@ -117,6 +117,82 @@ class UserRepository {
         } catch (error) {
             if (error instanceof demoError) throw error;
             throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_ADD_USER);
+        }
+    }
+
+    async verifyToken(token, ip) {
+        try {
+            if (!token) {
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
+                throw this.error;
+            }
+
+            let decoded = jwt.verify(token, process.env.DEMO_JWT_SECRET_KEY);
+
+            // get expired date
+            var dateNow = parseInt(new Date().getTime() / 1000);
+            var expiryDate = +decoded.iat + (+decoded.expiresIn * Constants.EXPIRES);
+
+            if (decoded.ip != ip) {
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
+                throw this.error;
+            }
+
+            // check expiration
+            if (dateNow < expiryDate) {
+                let users = await User.find({ username: decoded.username, deleted_date: null })
+                    .select("username password email_address first_name last_name")
+                    .exec();
+
+                if (users.length === 0) {
+                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorType = Constants.ERROR_TYPE.API;
+                    this.error.errorKey = Constants.ERROR_MAP.USER_NOT_FOUND;
+                    throw this.error;
+                }
+
+                // get user
+                var user = users[0];
+
+                // create a token
+                var token = jwt.sign({
+                    iat: Math.floor(Date.now() / 1000) - 30,
+                    expiresIn: Constants.EXPIRES,
+                    ip: ip,
+                    email_address: user.email_address,
+                    username: user.username
+                }, process.env.DEMO_JWT_SECRET_KEY);
+
+                return {
+                    token: token,
+                    expiresIn: Constants.EXPIRES,
+                    expiryDate: parseInt((Math.floor(Date.now() / 1000) - 30) + (Constants.EXPIRES * 60)),
+                    username: user.username,
+                    email_address: user.email_address,
+                    first_name: user.first_name,
+                    last_name: user.last_name
+                };
+
+            } else {
+                if (err) {
+                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorType = Constants.ERROR_TYPE.API;
+                    this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
+                    throw this.error;
+                } else {
+                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorType = Constants.ERROR_TYPE.API;
+                    this.error.errorKey = Constants.ERROR_MAP.TOKEN_EXPIRED;
+                    throw this.error;
+                }
+            }
+        } catch (error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_VERIFY_TOKEN);
         }
     }
 

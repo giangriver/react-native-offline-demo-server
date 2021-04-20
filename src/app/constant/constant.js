@@ -74,7 +74,10 @@ module.exports = Object.freeze({
         NO_PASSWORD: 'NO_PASSWORD',
         FAILED_TO_ADD_USER: 'FAILED_TO_ADD_USER',
         FAILED_TO_SIGN_UP: 'FAILED_TO_SIGN_UP',
-        FAILED_TO_SAVE_NEW_USER: 'FAILED_TO_SAVE_NEW_USER'
+        FAILED_TO_SAVE_NEW_USER: 'FAILED_TO_SAVE_NEW_USER',
+        FAILED_TO_VERIFY_TOKEN: 'FAILED_TO_VERIFY_TOKEN',
+        UNAUTHORIZED_USER: 'UNAUTHORIZED_USER',
+        TOKEN_EXPIRED: 'TOKEN_EXPIRED'
     },
     ERROR_CODE: {
         BAD_REQUEST: 400
@@ -96,7 +99,10 @@ module.exports = Object.freeze({
                 'NO_PASSWORD': "No password provided.",
                 'FAILED_TO_ADD_USER': "Fail to add user",
                 'FAILED_TO_SIGN_UP': "Fail to sign up",
-                'FAILED_TO_SAVE_NEW_USER': "Fail to save new user"
+                'FAILED_TO_SAVE_NEW_USER': "Fail to save new user",
+                'FAILED_TO_VERIFY_TOKEN': "Fail to verify token",
+                'UNAUTHORIZED_USER': "Unauthorized user",
+                'TOKEN_EXPIRED': "Token has expired",
             }
         },
     },
