@@ -1,5 +1,6 @@
 const contactService = require('../../services/contactservice');
 const upload = require("../../middleware/uploadmiddleware");
+const AuthGuard = require('../../libs/authguard').AuthGuard;
 class ContactController {
     constructor() {
         this.contactService = new contactService();
@@ -8,8 +9,7 @@ class ContactController {
     init(router) {
         const self = this;
 
-        router.route('/')
-            .get(async function (req, res, next) {
+        router.get('/', AuthGuard, async function (req, res, next) {
                 try {
                     const contacts = await self.contactService.listContacts();
                     res.sendOk(contacts);
@@ -18,7 +18,7 @@ class ContactController {
                 }
             });
 
-        router.post('/add', upload, async function (req, res, next) {
+        router.post('/add', [AuthGuard, upload], async function (req, res, next) {
             try {
                 let name = req.body.name || null;
                 let email = req.body.email.toLowerCase() || null;
@@ -32,7 +32,7 @@ class ContactController {
             }
         })
 
-        router.put('/update/:id', upload, async function (req, res, next) {
+        router.put('/update/:id', [AuthGuard, upload], async function (req, res, next) {
                 try {
                     const { id } = req.params;
                     let name = req.body.name || null;
@@ -46,8 +46,7 @@ class ContactController {
                 }
             });
 
-        router.route('/:id')
-            .get(async function (req, res, next) {
+        router.get('/:id', AuthGuard, async function (req, res, next) {
                try {
                 let { id } = req.params || null;
                 let result = await self.contactService.getContact(id);
