@@ -80,7 +80,10 @@ module.exports = Object.freeze({
         FAILED_TO_UPDATE_CONTACT: 'FAILED_TO_UPDATE_CONTACT',
         FAILED_TO_GET_CONTACT: 'FAILED_TO_GET_CONTACT',
         ID_NOT_FOUND: 'ID_NOT_FOUND',
-        CONTACT_NOT_FOUND: 'CONTACT_NOT_FOUND'
+        CONTACT_NOT_FOUND: 'CONTACT_NOT_FOUND',
+        FAILED_TO_VERIFY_TOKEN: 'FAILED_TO_VERIFY_TOKEN',
+        UNAUTHORIZED_USER: 'UNAUTHORIZED_USER',
+        TOKEN_EXPIRED: 'TOKEN_EXPIRED'
     },
     ERROR_CODE: {
         BAD_REQUEST: 400
@@ -108,7 +111,10 @@ module.exports = Object.freeze({
                 'FAILED_TO_UPDATE_CONTACT': "Fail to update contact",
                 'FAILED_TO_GET_CONTACT': "Fail to get detail of contact",
                 'ID_NOT_FOUND': "Id contact is undefined",
-                'CONTACT_NOT_FOUND': "Contact is not found"
+                'CONTACT_NOT_FOUND': "Contact is not found",
+                'FAILED_TO_VERIFY_TOKEN': "Fail to verify token",
+                'UNAUTHORIZED_USER': "Unauthorized user",
+                'TOKEN_EXPIRED': "Token has expired",
             }
         },
     },
