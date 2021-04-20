@@ -15,7 +15,7 @@ class UserController {
                     let username = req.body.username.toLowerCase() || null;
                     let email_address = req.body.email_address.toLowerCase() || null;
                     let password = req.body.password || null;
-                    let first_name= req.body.first_name || null;
+                    let first_name = req.body.first_name || null;
                     let last_name = req.body.last_name || null;
                     let result = await self.userService.signUp(username, email_address, password, first_name, last_name);
                     res.sendOk(result);

@@ -123,7 +123,7 @@ class UserRepository {
     async verifyToken(token, ip) {
         try {
             if (!token) {
-                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorCode = Constants.ERROR_CODE.UNAUTHORIZED;
                 this.error.errorType = Constants.ERROR_TYPE.API;
                 this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
                 throw this.error;
@@ -136,7 +136,7 @@ class UserRepository {
             var expiryDate = +decoded.iat + (+decoded.expiresIn * Constants.EXPIRES);
 
             if (decoded.ip != ip) {
-                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorCode = Constants.ERROR_CODE.UNAUTHORIZED;
                 this.error.errorType = Constants.ERROR_TYPE.API;
                 this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
                 throw this.error;
@@ -179,14 +179,14 @@ class UserRepository {
 
             } else {
                 if (err) {
-                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorCode = Constants.ERROR_CODE.UNAUTHORIZED;
                     this.error.errorType = Constants.ERROR_TYPE.API;
                     this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED_USER;
                     throw this.error;
                 } else {
-                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorCode = Constants.ERROR_CODE.UNAUTHORIZED;
                     this.error.errorType = Constants.ERROR_TYPE.API;
-                    this.error.errorKey = Constants.ERROR_MAP.TOKEN_EXPIRED;
+                    this.error.errorKey = Constants.ERROR_MAP.UNAUTHORIZED;
                     throw this.error;
                 }
             }

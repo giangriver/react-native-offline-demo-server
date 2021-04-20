@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken"),
     Constants = require('../constant/constant');
+const demoError = require('../dto/demoerror');
 
 exports.AuthGuard = (req, res, next) => {
     var token = req.headers['token'];
@@ -26,6 +27,12 @@ exports.AuthGuard = (req, res, next) => {
       } else {
         console.log("Error in auth guard: ");
         console.log(err);
+
+        let err = new demoError();
+        err.errorCode = Constants.ERROR_CODE.UNAUTHORIZED;
+        err.errorType = Constants.ERROR_TYPE.API;
+        err.errorKey = Constants.ERROR_MAP.UNAUTHORIZED;
+        return res.sendError(err);
       }
 
       // keep moving

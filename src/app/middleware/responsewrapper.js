@@ -34,6 +34,5 @@ module.exports = function (req, res, next) {
 	res.sendOk = function (data) {
 		res.send(new responseTemplateDto(data));
 	}
-
 	next()
 }
