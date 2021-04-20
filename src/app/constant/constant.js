@@ -74,7 +74,13 @@ module.exports = Object.freeze({
         NO_PASSWORD: 'NO_PASSWORD',
         FAILED_TO_ADD_USER: 'FAILED_TO_ADD_USER',
         FAILED_TO_SIGN_UP: 'FAILED_TO_SIGN_UP',
-        FAILED_TO_SAVE_NEW_USER: 'FAILED_TO_SAVE_NEW_USER'
+        FAILED_TO_SAVE_NEW_USER: 'FAILED_TO_SAVE_NEW_USER',
+        FAILED_TO_GET_CONTACTS: 'FAILED_TO_GET_CONTACTS',
+        FAILED_TO_CREATE_CONTACT: 'FAILED_TO_CREATE_CONTACT',
+        FAILED_TO_UPDATE_CONTACT: 'FAILED_TO_UPDATE_CONTACT',
+        FAILED_TO_GET_CONTACT: 'FAILED_TO_GET_CONTACT',
+        ID_NOT_FOUND: 'ID_NOT_FOUND',
+        CONTACT_NOT_FOUND: 'CONTACT_NOT_FOUND'
     },
     ERROR_CODE: {
         BAD_REQUEST: 400
@@ -96,7 +102,13 @@ module.exports = Object.freeze({
                 'NO_PASSWORD': "No password provided.",
                 'FAILED_TO_ADD_USER': "Fail to add user",
                 'FAILED_TO_SIGN_UP': "Fail to sign up",
-                'FAILED_TO_SAVE_NEW_USER': "Fail to save new user"
+                'FAILED_TO_SAVE_NEW_USER': "Fail to save new user",
+                'FAILED_TO_GET_CONTACTS': "Fail to retrieve contacts",
+                'FAILED_TO_CREATE_CONTACT': "Fail to create contact",
+                'FAILED_TO_UPDATE_CONTACT': "Fail to update contact",
+                'FAILED_TO_GET_CONTACT': "Fail to get detail of contact",
+                'ID_NOT_FOUND': "Id contact is undefined",
+                'CONTACT_NOT_FOUND': "Contact is not found"
             }
         },
     },

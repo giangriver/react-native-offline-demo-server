@@ -18,8 +18,9 @@ class ContactRepository {
     		const contacts = await Contact.find({}).sort({ updated_date: -1 }).skip(offset).limit(limit);
       		return { contacts };
     	}
-    	catch(err) {
-
+    	catch(error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_GET_CONTACTS);
     	}
     }
 
@@ -34,8 +35,9 @@ class ContactRepository {
     		contact = await contact.save();
     		return contact;
     	}
-    	catch(err) {
-
+    	catch(error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_CREATE_CONTACT);
     	}
     }
 
@@ -45,13 +47,15 @@ class ContactRepository {
             const contact = await Contact.findById(id);
   
             if (!contact) {
-                throw new Error('Contact is not found by id');
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.CONTACT_NOT_FOUND;
+                throw this.error;
             }
 
             const updated_date = Date.now();
 
             const modifier = { name, number, email, photo, updated_date };
-            console.log(modifier);
 
             const editedContact = await Contact.findOneAndUpdate(
                 { _id: id },
@@ -60,9 +64,24 @@ class ContactRepository {
 
             return editedContact;
         }
-        catch(err) {
-
+        catch(error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_UPDATE_CONTACT);
         }
+    }
+
+    async getContact(id) {
+    	const METHOD_NAME = "getContact";
+    	try {
+    		const contact = await Contact.findById(id)
+                .select("name number email photo")
+                .exec();
+      		return { contact };
+    	}
+    	catch(error) {
+            if (error instanceof demoError) throw error;
+            throw new demoError(Constants.ERROR_CODE.BAD_REQUEST, Constants.ERROR_TYPE.API, Constants.ERROR_MAP.FAILED_TO_GET_CONTACTS);
+    	}
     }
 
 }

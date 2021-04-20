@@ -9,7 +9,7 @@ class ContactController {
     init(router) {
         const self = this;
 
-        router.route('/listContacts')
+        router.route('/')
             .get(async function (req, res, next) {
                 try {
                     const contacts = await self.contactService.listContacts();
@@ -19,7 +19,7 @@ class ContactController {
                 }
             });
 
-        router.route('/addContact')
+        router.route('/add')
             .post(async function (req, res, next) {
                 try {
                     let name = req.body.name || null;
@@ -33,7 +33,7 @@ class ContactController {
                 }
             });
 
-        router.route('/updateContact/:id')
+        router.route('/update/:id')
             .put(async function (req, res, next) {
                 try {
                     const { id } = req.params;
@@ -48,6 +48,17 @@ class ContactController {
                     res.sendError(error);
                 }
             });
+
+        router.route('/:id')
+            .get(async function (req, res, next) {
+               try {
+                let { id } = req.params || null;
+                let result = await self.contactService.getContact(id);
+                res.sendOk(result);
+               } catch (error) {
+                 res.sendError(error);
+               } 
+            })
     }
 }
 module.exports = ContactController;
