@@ -15,7 +15,7 @@ class ContactRepository {
     async listContacts({ offset = 0, limit = 10 } = {}) {
     	const METHOD_NAME = "listContacts";
     	try {
-    		const contacts = await Contact.find({}).sort({ updated_date: -1 }).skip(offset).limit(limit);
+    		let contacts = await Contact.find({}).sort({ updated_date: -1 }).skip(offset).limit(limit);
       		return { contacts };
     	}
     	catch(error) {
@@ -27,7 +27,14 @@ class ContactRepository {
     async createContact(name, number, email, photo) {
     	const METHOD_NAME = "createContact";
     	try {
-    		const contact = new Contact({name: name,
+            let existingContact = await Contact.findOne({email: email});
+            if (existingContact) {
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
+                throw this.error;
+            }
+    		let contact = new Contact({name: name,
     			number: number,
     			email: email,
     			photo: photo});
@@ -44,7 +51,7 @@ class ContactRepository {
     async updateContact(id, name, number, email, photo) {
         const METHOD_NAME = "updateContact";
         try {
-            const contact = await Contact.findById(id);
+            let contact = await Contact.findById(id);
   
             if (!contact) {
                 this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
@@ -53,11 +60,18 @@ class ContactRepository {
                 throw this.error;
             }
 
-            const updated_date = Date.now();
+            let existingContact = await Contact.findOne({email: email});
+            if (existingContact) {
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
+                throw this.error;
+            }
 
-            const modifier = { name, number, email, photo, updated_date };
+            let updated_date = Date.now();
+            let modifier = { name, number, email, photo, updated_date };
 
-            const editedContact = await Contact.findOneAndUpdate(
+            let editedContact = await Contact.findOneAndUpdate(
                 { _id: id },
                 { $set: modifier }
             );
@@ -73,7 +87,7 @@ class ContactRepository {
     async getContact(id) {
     	const METHOD_NAME = "getContact";
     	try {
-    		const contact = await Contact.findById(id)
+    		let contact = await Contact.findById(id)
                 .select("name number email photo")
                 .exec();
       		return { contact };

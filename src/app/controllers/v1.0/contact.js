@@ -1,6 +1,5 @@
-const mongoose = require('mongoose'),
-contactService = require('../../services/contactservice');
-
+const contactService = require('../../services/contactservice');
+const upload = require("../../middleware/uploadmiddleware");
 class ContactController {
     constructor() {
         this.contactService = new contactService();
@@ -19,29 +18,27 @@ class ContactController {
                 }
             });
 
-        router.route('/add')
-            .post(async function (req, res, next) {
-                try {
-                    let name = req.body.name || null;
-                    let email = req.body.email.toLowerCase() || null;
-                    let number = req.body.number || null;
-                    let photo = req.body.photo || null;
-                    const contact = await self.contactService.createContact(name, number, email, photo);
-                    res.sendOk(contact);
-                } catch (error) {
-                    res.sendError(error);
-                }
-            });
+        router.post('/add', upload, async function (req, res, next) {
+            try {
+                let name = req.body.name || null;
+                let email = req.body.email.toLowerCase() || null;
+                let number = req.body.number || null;
+                let photo = req.file.path || null;
+                const contact = await self.contactService.createContact(name, number, email, photo);
+                res.sendOk(contact);
+            } catch (error) {
+                console.log(error);
+                res.sendError(error);
+            }
+        })
 
-        router.route('/update/:id')
-            .put(async function (req, res, next) {
+        router.put('/update/:id', upload, async function (req, res, next) {
                 try {
                     const { id } = req.params;
-
                     let name = req.body.name || null;
                     let email = req.body.email.toLowerCase() || null;
                     let number = req.body.number || null;
-                    let photo = req.body.photo || null;
+                    let photo = req.file.path || null;
                     const contact = await self.contactService.updateContact(id, name, number, email, photo);
                     res.sendOk(contact);
                 } catch (error) {
