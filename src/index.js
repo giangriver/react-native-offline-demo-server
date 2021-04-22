@@ -24,7 +24,7 @@ process.env['NODE_CONFIG_DIR'] = path.join(__dirname, 'app/config');
 const port = process.env.PORT || 8006;
 
 // set up database
-const db = mongoose.connect(process.env.DEMO_DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+const db = mongoose.connect(process.env.DEMO_DB, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false });
 
 //-------------------------------------------------------------------
 // configure app

@@ -84,7 +84,8 @@ module.exports = Object.freeze({
         FAILED_TO_VERIFY_TOKEN: 'FAILED_TO_VERIFY_TOKEN',
         UNAUTHORIZED_USER: 'UNAUTHORIZED_USER',
         TOKEN_EXPIRED: 'TOKEN_EXPIRED',
-        UNAUTHORIZED: 'UNAUTHORIZED'
+        UNAUTHORIZED: 'UNAUTHORIZED',
+        UNEXISTING_CONTACT: 'UNEXISTING_CONTACT'
     },
     ERROR_CODE: {
         BAD_REQUEST: 400,
@@ -115,6 +116,7 @@ module.exports = Object.freeze({
                 'ID_NOT_FOUND': "Id contact is undefined",
                 'CONTACT_NOT_FOUND': "Contact is not found",
                 'FAILED_TO_VERIFY_TOKEN': "Fail to verify token",
+                'UNEXISTING_CONTACT': "Contact id is not existing"
             },
             [401]: {
                 'UNAUTHORIZED': "Token expired or invalid",

@@ -76,7 +76,7 @@ class ContactRepository {
                 { $set: modifier }
             );
 
-            return editedContact;
+            return modifier;
         }
         catch(error) {
             if (error instanceof demoError) throw error;
@@ -90,6 +90,14 @@ class ContactRepository {
     		let contact = await Contact.findById(id)
                 .select("name number email photo")
                 .exec();
+        
+            if (!contact) {
+                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                this.error.errorType = Constants.ERROR_TYPE.API;
+                this.error.errorKey = Constants.ERROR_MAP.UNEXISTING_CONTACT;
+                throw this.error;
+            }    
+
       		return { contact };
     	}
     	catch(error) {

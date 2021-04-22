@@ -14,6 +14,13 @@ paths:
         summary: POST authentication
         description: POST authentication
         operationId: postAuthentication
+        parameters:
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
         requestBody:
           content:
             application/json:
@@ -48,6 +55,13 @@ paths:
         summary: POST sign up account
         description: POST sign up account
         operationId: postSignup
+        parameters:
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
         requestBody:
           content:
             application/json:
@@ -107,6 +121,159 @@ paths:
                     $ref: '#/components/examples/v1GetRefreshResponse'
                   failExample:
                     $ref: '#/components/examples/v1GetRefreshFailResponse'
+    
+    /v1.0/contact:
+      get:
+        tags:
+          - 'Get Contact'
+        summary: GET contact
+        description: GET contact
+        operationId: getContact
+        parameters:
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
+        responses:
+          200:
+            description: GET contact
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1GetContactResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1GetContactResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1GetContactFailResponse'
+    
+    /v1.0/contact/{id}:
+      get:
+        tags:
+          - 'Get Detail Contact'
+        summary: GET detail contact
+        description: GET detail contact
+        operationId: getDetailContact
+        parameters:
+          - in: path
+            name: id
+            required: true
+            schema:
+            type: string
+            example: '607d3c7cbcad8f1ba4cf8b12'
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
+        responses:
+          200:
+            description: GET detail contact
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1GetDetailContactResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1GetDetailContactResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1GetDetailContactFailResponse'
+    
+    /v1.0/contact/add:
+      post:
+        tags:
+          - 'Add Contact'
+        summary: POST add contact
+        description: POST add contact
+        operationId: postAddContact
+        parameters:
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
+        requestBody:
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  # 'file' will be the field name in this multipart request
+                  file:
+                    type: string
+                    format: binary 
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  number:
+                    type: string
+        responses:
+          200:
+            description: POST signup
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1PostAddContactResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1PostAddContactResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1PostAddContactFailResponse'
+    
+    /v1.0/contact/update/{id}:
+      put:
+        tags:
+          - 'Update Contact'
+        summary: PUT udpate contact
+        description: PUT udpate contact
+        operationId: putUpdateContact
+        parameters:
+          - in: 'header'
+            name: token
+            required: true
+            schema:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MTg4ODU3NTAsImV4cGlyZXNJbiI6NDMyMCwiaXAiOiI6OjEiLCJlbWFpbF9hZGRyZXNzIjoidHVvbmdtYXJ0aW4xMkB5b3BtYWlsLmNvbSIsInVzZXJuYW1lIjoid3d3In0.51aBVVpHZQssHlXQ7kPAQCRP6QlEAGRXNHjm5ykJlGQ
+          - in: path
+            name: id
+            required: true
+            schema:
+            type: string
+            example: '607ea2a258749c5084273b58' 
+        requestBody:
+          content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  # 'file' will be the field name in this multipart request
+                  file:
+                    type: string
+                    format: binary 
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  number:
+                    type: string
+        responses:
+          200:
+            description: PUT update contact
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/v1PutUpdateContactResponse'
+                examples:
+                  successExample:
+                    $ref: '#/components/examples/v1PutUpdateContactResponse'
+                  failExample:
+                    $ref: '#/components/examples/v1PutUpdateContactFailResponse'
+
 components:
   schemas:
     v1PostAuthenticationResponse:
@@ -246,6 +413,162 @@ components:
           items: 
             type: object
           example: []
+    
+    v1GetContactResponse:
+      type: object
+      properties:
+        responseData:
+          type: "object"
+          properties:
+            contacts:
+              type: "array"
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: "string"
+                  name:
+                    type: "string"
+                  number: 
+                    type: "string"
+                  email: 
+                    type: "string"
+                  photo:
+                    type: "string"
+                  created_date:
+                    type: "string"
+                  updated_date:
+                    type: "string"  
+        status:
+          description: Success status
+          type: "string"
+          example: "success"
+          enum: ['success','false']
+        message:
+          description: Response Message
+          type: string
+          example: null
+        timestamp:
+          type: "string"
+          example: "2019-08-06 02:31:20"
+        violations:
+          type: 'array'
+          items: 
+            type: object
+          example: []
+
+    v1GetDetailContactResponse:
+      type: object
+      properties:
+        responseData:
+          type: "object"
+          properties:
+            contact:
+              type: "object"
+              properties:
+                _id:
+                  type: "string"
+                name:
+                  type: "string"
+                number: 
+                  type: "string"
+                email: 
+                  type: "string"
+                photo:
+                  type: "string"
+                created_date:
+                  type: "string"
+                updated_date:
+                  type: "string"  
+        status:
+          description: Success status
+          type: "string"
+          example: "success"
+          enum: ['success','false']
+        message:
+          description: Response Message
+          type: string
+          example: null
+        timestamp:
+          type: "string"
+          example: "2019-08-06 02:31:20"
+        violations:
+          type: 'array'
+          items: 
+            type: object
+          example: []
+    
+    v1PostAddContactResponse:
+      type: object
+      properties:
+        responseData:
+          type: "object"
+          properties:
+            _id:
+              type: "string"
+            name:
+              type: "string"
+            number: 
+              type: "string"
+            email: 
+              type: "string"
+            photo:
+              type: "string"
+            created_date:
+              type: "string"
+            updated_date:
+              type: "string"  
+        status:
+          description: Success status
+          type: "string"
+          example: "success"
+          enum: ['success','false']
+        message:
+          description: Response Message
+          type: string
+          example: null
+        timestamp:
+          type: "string"
+          example: "2019-08-06 02:31:20"
+        violations:
+          type: 'array'
+          items: 
+            type: object
+          example: []
+    
+    v1PutUpdateContactResponse:
+      type: object
+      properties:
+        responseData:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            number: 
+              type: "string"
+            email: 
+              type: "string"
+            photo:
+              type: "string"
+            updated_date:
+              type: "string"  
+        status:
+          description: Success status
+          type: "string"
+          example: "success"
+          enum: ['success','false']
+        message:
+          description: Response Message
+          type: string
+          example: null
+        timestamp:
+          type: "string"
+          example: "2019-08-06 02:31:20"
+        violations:
+          type: 'array'
+          items: 
+            type: object
+          example: []
 
   examples:
 
@@ -319,6 +642,108 @@ components:
         violations: null
 
     v1GetRefreshFailResponse:
+      value:
+        auth: false,
+        message: "No token provided."
+
+    v1GetContactResponse:
+      value:
+        message: null
+        responseData:
+          contacts: 
+            - _id: "607d3c7cbcad8f1ba4cf8b12"
+              name: "Petelast232353 1234576 Nguyen"
+              number: "+84 09798765511"
+              email: "perter4123444@gmail.com"
+              photo: null
+              created_date: "2021-04-19T08:17:00.355Z"
+              updated_date: "2021-04-21T17:42:10.093Z"
+              __v: 0
+
+            - _id: "607ef31d56a90b1d546cb79a"
+              name: "Peter26 Nguyen"
+              user_id: "6076a148d42e10f383723f94"
+              number: "+84 097987655"
+              email: "perter26@gmail.com"
+              photo": null
+              created_date: "2021-04-20T15:28:29.374Z"
+              updated_date: "2021-04-20T15:28:29.374Z"
+              __v: 0
+        status: "success"
+        timeStamp: "2021-04-20 03:16:10"
+        violations: null
+
+    v1GetContactFailResponse:
+      value:
+        auth: false,
+        message: "No token provided."
+
+    v1GetDetailContactResponse:
+      value:
+        message: null
+        responseData:
+          contact: 
+            _id: "607d3c7cbcad8f1ba4cf8b12"
+            name: "Petelast232353 1234576 Nguyen"
+            number: "+84 09798765511"
+            email: "perter4123444@gmail.com"
+            photo: null
+            created_date: "2021-04-19T08:17:00.355Z"
+            updated_date: "2021-04-21T17:42:10.093Z"
+            __v: 0
+        status: "success"
+        timeStamp: "2021-04-20 03:16:10"
+        violations: null
+
+    v1GetDetailContactFailResponse:
+      value:
+        message: null
+        responseData: null
+        status: "fail"
+        timeStamp: "2021-04-22 01:56:54"
+        violations:
+          - code: 400
+            message: "Contact id is not existing"
+            action: null
+    
+    v1PostAddContactResponse:
+      message: null
+        responseData:
+          contact: 
+            _id: "607ea2a258749c5084273b58"
+            name: "Tian"
+            number: "0332563256"
+            email: "teemo@yopmail.com"
+            photo: "public\\uploads\\kini.jpg"
+            created_date: "2021-04-19T08:17:00.355Z"
+            updated_date: "2021-04-21T17:42:10.093Z"
+            __v: 0
+        status: "success"
+        timeStamp: "2021-04-20 03:16:10"
+        violations: null
+    
+    v1PostAddContactFailResponse:
+      value:
+        auth: false,
+        message: "No token provided."
+    
+    v1PutUpdateContactResponse:
+      message: null
+        responseData:
+          contact: 
+            _id: "607ea2a258749c5084273b58"
+            name: "Tian"
+            number: "0332563256"
+            email: "dev113@yopmail.com"
+            photo: "public\\uploads\\kini.jpg"
+            created_date: "2021-04-19T08:17:00.355Z"
+            updated_date: "2021-04-21T17:42:10.093Z"
+            __v: 0
+        status: "success"
+        timeStamp: "2021-04-20 03:16:10"
+        violations: null
+    
+    v1PutUpdateContactResponse:
       value:
         auth: false,
         message: "No token provided."
