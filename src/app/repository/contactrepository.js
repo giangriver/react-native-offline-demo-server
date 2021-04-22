@@ -60,16 +60,24 @@ class ContactRepository {
                 throw this.error;
             }
 
-            let existingContact = await Contact.findOne({email: email});
-            if (existingContact) {
-                this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
-                this.error.errorType = Constants.ERROR_TYPE.API;
-                this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
-                throw this.error;
+            if (email) {
+                let existingContact = await Contact.findOne({email: email});
+                if (existingContact) {
+                    this.error.errorCode = Constants.ERROR_CODE.BAD_REQUEST;
+                    this.error.errorType = Constants.ERROR_TYPE.API;
+                    this.error.errorKey = Constants.ERROR_MAP.EMAIL_EXISTS;
+                    throw this.error;
+                }
             }
 
+
             let updated_date = Date.now();
-            let modifier = { name, number, email, photo, updated_date };
+            let modifier = { 
+                name: name || contact.name,
+                number: number || contact.number, 
+                email: email || contact.email, 
+                photo: photo || contact.photo,
+                updated_date };
 
             let editedContact = await Contact.findOneAndUpdate(
                 { _id: id },

@@ -21,13 +21,12 @@ class ContactController {
         router.post('/add', [AuthGuard, upload], async function (req, res, next) {
             try {
                 let name = req.body.name || null;
-                let email = req.body.email.toLowerCase() || null;
+                let email = !req.body.email ? null : req.body.email.toLowerCase();
                 let number = req.body.number || null;
                 let photo = req.file.path || null;
                 const contact = await self.contactService.createContact(name, number, email, photo);
                 res.sendOk(contact);
             } catch (error) {
-                console.log(error);
                 res.sendError(error);
             }
         })
@@ -36,9 +35,9 @@ class ContactController {
                 try {
                     const { id } = req.params;
                     let name = req.body.name || null;
-                    let email = req.body.email.toLowerCase() || null;
+                    let email = !req.body.email ? null : req.body.email.toLowerCase();
                     let number = req.body.number || null;
-                    let photo = req.file.path || null;
+                    let photo = !req.file ? null : req.file.path;
                     const contact = await self.contactService.updateContact(id, name, number, email, photo);
                     res.sendOk(contact);
                 } catch (error) {
